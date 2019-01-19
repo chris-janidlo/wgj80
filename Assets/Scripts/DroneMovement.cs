@@ -42,7 +42,8 @@ public class DroneMovement : MonoBehaviour
 
     bool grounded ()
     {
-        return Physics.BoxCast(transform.position, GroundCheckHalfExtents, Vector3.down, transform.rotation, HalfHeight, GroundLayers, QueryTriggerInteraction.Ignore);
+        // add half height because model's origin is at feet
+        return Physics.BoxCast(transform.position + Vector3.up * HalfHeight, GroundCheckHalfExtents, Vector3.down, transform.rotation, HalfHeight, GroundLayers, QueryTriggerInteraction.Ignore);
     }
 
     void jump ()
