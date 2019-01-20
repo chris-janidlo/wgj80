@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using crass;
@@ -18,6 +18,7 @@ public class InventoryManager : Singleton<InventoryManager>
 		else
 		{
 			SingletonSetInstance(this, false);
+			transform.parent = null;
 			DontDestroyOnLoad(gameObject);
 		}
 	}
