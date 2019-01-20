@@ -14,9 +14,9 @@ public class Scanner : Singleton<Scanner>
 	public float SpherecastRadius;
 	public LayerMask HackableLayers;
 
-	public IHackable Target { get; private set; }
+	public IHackable Target { get; private set; } = null;
 
-	void Start ()
+	void Awake ()
 	{
 		SingletonSetInstance(this, true);
 	}
@@ -29,6 +29,7 @@ public class Scanner : Singleton<Scanner>
 			HackingHUD.SetActive(false);
 			AlreadyHackedHUD.SetActive(false);
 			TargetNameDisplay.SetName("");
+			Target = null;
 			return;
 		}
 

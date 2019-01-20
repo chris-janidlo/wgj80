@@ -35,6 +35,8 @@ public class HackInventoryMenu : MonoBehaviour
 
         oldTimeScale = Time.timeScale; // make sure oldTimeScale is accurate and not a default value, nor a potentially innaccurate compile-time constant
         setPauseState(false);
+
+        InfoBox.text = BlankInfoBoxText;
     }
 
     void Update ()

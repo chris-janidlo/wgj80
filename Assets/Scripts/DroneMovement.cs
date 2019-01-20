@@ -17,7 +17,7 @@ public class DroneMovement : Singleton<DroneMovement>
     Rigidbody rb;
     bool canJump = true;
 
-    void Start ()
+    void Awake ()
     {
         SingletonSetInstance(this, true);
         rb = GetComponent<Rigidbody>();
