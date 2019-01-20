@@ -16,7 +16,11 @@ public class HackButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     Action<Hack> onPointerEnterCallback, onPointerExitCallback, onClickCallback;
     Hack hack;
 
-    bool clickable => hack.TargetObjectType == Scanner.Instance.Target?.HackType;
+    // TODO: feeback on why hack isn't clickable
+    bool clickable =>
+        hack.TargetObjectType == Scanner.Instance.Target?.HackType &&
+        hack.InfiniteRange ||
+        Vector3.Distance(DroneMovement.Instance.Position, Scanner.Instance.Target.transform.position) <= hack.Range;
     bool hovered, pressed;
 
     void Update ()

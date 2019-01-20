@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using crass;
 
-public class DroneMovement : MonoBehaviour
+public class DroneMovement : Singleton<DroneMovement>
 {
+    public Vector3 Position => transform.position;
+    
     public float MoveSpeed;
     public float JumpForce;
 
@@ -16,6 +19,7 @@ public class DroneMovement : MonoBehaviour
 
     void Start ()
     {
+        SingletonSetInstance(this, true);
         rb = GetComponent<Rigidbody>();
     }
 
