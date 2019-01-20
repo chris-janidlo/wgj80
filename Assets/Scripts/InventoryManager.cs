@@ -18,6 +18,7 @@ public class InventoryManager : Singleton<InventoryManager>
 		else
 		{
 			SingletonSetInstance(this, false);
+			DontDestroyOnLoad(gameObject);
 		}
 	}
 }
