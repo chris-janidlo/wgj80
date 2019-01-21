@@ -33,7 +33,7 @@ public class DroneMovement : Singleton<DroneMovement>
 
         if (grounded())
         {
-            if (canJump && Input.GetButton("Jump"))
+            if (canJump && Input.GetButtonDown("Jump"))
             {
                 jump();
             }
@@ -52,6 +52,7 @@ public class DroneMovement : Singleton<DroneMovement>
 
     void jump ()
     {
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         rb.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
         canJump = false;
     }
