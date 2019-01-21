@@ -4772,6 +4772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a789ccad9074ccf9da7c33bad0e3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerChaseDistance: 2
   PatrolPoints: []
   StationaryTime: 3
 --- !u!195 &7600290297907180658

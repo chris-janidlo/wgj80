@@ -6,16 +6,19 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class SecurityBot : MonoBehaviour
 {
+    public float PlayerChaseDistance;
     public List<Transform> PatrolPoints;
     public float StationaryTime;
 
     int targetPoint;
+    float oldStopDistance;
     NavMeshAgent agent;
     IEnumerator mainEnum;
 
     void Start ()
     {
         agent = GetComponent<NavMeshAgent>();
+        oldStopDistance = agent.stoppingDistance;
         StartCoroutine(mainEnum = main());
     }
 
@@ -25,14 +28,18 @@ public class SecurityBot : MonoBehaviour
         if (SecurityManager.Instance.Alert)
         {
             agent.destination = DroneMovement.Instance.transform.position;
-            if (mainEnum != null)
+            if (mainEnum != null) // first frame of alert
             {
                 StopCoroutine(mainEnum);
                 mainEnum = null;
+
+                oldStopDistance = agent.stoppingDistance;
+                agent.stoppingDistance = PlayerChaseDistance;
             }
         }
         else if (mainEnum == null)
         {
+            agent.stoppingDistance = oldStopDistance;
             StartCoroutine(mainEnum = main());
         }
     }

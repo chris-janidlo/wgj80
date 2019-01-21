@@ -27,7 +27,7 @@ public class SecurityCamera : MonoBehaviour
             if (!playerInSight) return;
             
             transform.LookAt(DroneMovement.Instance.transform);
-            transform.Rotate(90, 0, 0);
+            transform.Rotate(-90, 0, 0);
 
             shootTimer -= Time.deltaTime;
             if (shootTimer <= 0)
@@ -49,6 +49,7 @@ public class SecurityCamera : MonoBehaviour
 
     void OnTriggerEnter (Collider other)
     {
+        Debug.Log(other);
         if (other.tag == "Player")
         {
             playerInSight = true;
