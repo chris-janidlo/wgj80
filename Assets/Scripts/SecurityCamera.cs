@@ -7,14 +7,17 @@ public class SecurityCamera : MonoBehaviour
     public float AlarmPerSecond;
     public Vector2 ShootTimeRange;
     public Laser LaserPrefab;
+    public ParticleSystem RangeVisualizer;
 
     Quaternion initialRotation;
     bool playerInSight;
     float shootTimer;
 
+    Vector3 oldPosition;
+
     void Start ()
     {
-        initialRotation = transform.rotation;
+        initialRotation = transform.localRotation;
     }
 
     void Update ()
@@ -36,8 +39,12 @@ public class SecurityCamera : MonoBehaviour
         else
         {
             // TODO: animate this
-            transform.rotation = initialRotation;
+            transform.localRotation = initialRotation;
         }
+
+        var em = RangeVisualizer.emission;
+        em.enabled = oldPosition == transform.position || SecurityManager.Instance.Alert;
+        oldPosition = transform.position;
     }
 
     void OnTriggerEnter (Collider other)

@@ -7,14 +7,16 @@ using UnityEngine.AI;
 public class SecurityBot : MonoBehaviour
 {
     public List<Transform> PatrolPoints;
+    public float StationaryTime;
 
     int targetPoint;
     NavMeshAgent agent;
+    IEnumerator mainEnum;
 
     void Start ()
     {
         agent = GetComponent<NavMeshAgent>();
-        goToNextPoint();
+        StartCoroutine(mainEnum = main());
     }
 
     // Update is called once per frame
@@ -23,16 +25,26 @@ public class SecurityBot : MonoBehaviour
         if (SecurityManager.Instance.Alert)
         {
             agent.destination = DroneMovement.Instance.transform.position;
+            if (mainEnum != null)
+            {
+                StopCoroutine(mainEnum);
+                mainEnum = null;
+            }
         }
-        else if (!agent.pathPending && agent.remainingDistance <= Mathf.Epsilon)
+        else if (mainEnum == null)
         {
-            goToNextPoint();
+            StartCoroutine(mainEnum = main());
         }
     }
 
-    void goToNextPoint ()
+    IEnumerator main ()
     {
-        agent.destination = PatrolPoints[targetPoint].position;
-        targetPoint = (targetPoint + 1) % PatrolPoints.Count;
+        while (true)
+        {
+            agent.destination = PatrolPoints[targetPoint].position;
+            targetPoint = (targetPoint + 1) % PatrolPoints.Count;
+            yield return new WaitUntil(() => !agent.pathPending && agent.remainingDistance <= Mathf.Epsilon);
+            yield return new WaitForSeconds(StationaryTime);
+        }
     }
 }
