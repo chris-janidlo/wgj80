@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,7 +33,7 @@ public class SecurityCamera : MonoBehaviour
             if (shootTimer <= 0)
             {
                 shootTimer = Random.Range(ShootTimeRange.x, ShootTimeRange.y);
-                Instantiate(LaserPrefab, transform.position, transform.rotation);
+                Instantiate(LaserPrefab, transform.position, transform.rotation * Quaternion.Euler(90, 0, 0));
             }
         }
         else
