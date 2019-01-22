@@ -43,6 +43,6 @@ public class Hack : ScriptableObject
 
     public int NewMarketPrice ()
     {
-        CurrentMarketPrice = Random.Range(MarketPriceRange.x, MarketPriceRange.y);
+        return CurrentMarketPrice = Random.Range(MarketPriceRange.x, MarketPriceRange.y);
     }
 }
