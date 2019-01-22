@@ -19,6 +19,8 @@ public class Hack : ScriptableObject
     public float RevealChance, PatchChance;
     public int Range;
     public bool InfiniteRange;
+    public Vector2Int MarketPriceRange;
+    public int CurrentMarketPrice;
 
     public void UseOn (IHackable target)
     {
@@ -37,5 +39,10 @@ public class Hack : ScriptableObject
 			// TODO: set some persistent state
 			Debug.Log("you got patched son");
 		}
+    }
+
+    public int NewMarketPrice ()
+    {
+        CurrentMarketPrice = Random.Range(MarketPriceRange.x, MarketPriceRange.y);
     }
 }
