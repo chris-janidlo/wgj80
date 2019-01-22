@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: TestHack 3
   m_EditorClassIdentifier: 
   DisplayName: Jimbo
-  FlavorText: Aggressively feeds malformed input
+  FlavorText: Aggressively feeds bad data
+  EffectText: Reveals <u>robot</u> vision cone for 5 seconds
   TargetObjectType: 3
+  HackMethodName: ShowVisionConeHack
+  HackMethodParam: 5
+  PassParam: 1
   RevealChance: 0.517
   PatchChance: 1
-  Range: 1
+  Range: 3
   InfiniteRange: 0

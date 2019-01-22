@@ -18,15 +18,6 @@ public class HackButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
 	bool hovered, pressed;
 
-    void Update ()
-    {
-        if (!clickable())
-        {
-            TargetText.color = hovered ? HighlightedColor : NormalColor;
-            pressed = false;
-        }
-    }
-
     public void Initialize (Hack hack, Action<Hack> onPointerEnterCallback, Action<Hack> onPointerExitCallback, Action<Hack> onClickCallback)
     {
         this.hack = hack;
@@ -53,31 +44,15 @@ public class HackButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
 	public void OnPointerDown(PointerEventData eventData)
 	{
-        if (!clickable()) return;
-
         pressed = true;
         TargetText.color = PressedColor;
 	}
 
 	public void OnPointerUp(PointerEventData eventData)
 	{
-        if (!clickable()) return;
-
         pressed = false;
         TargetText.color = NormalColor;
 
         if (hovered) onClickCallback(hack);
 	}
-
-	// TODO: feeback on why hack isn't clickable
-	private bool clickable()
-	{
-        // would prefer to one-line this but Unity object nulls aren't really nulls so short-circuiting doesn't work as expected
-        if (Scanner.Instance.Target == null) return false;
-
-        return 
-            hack.TargetObjectType == Scanner.Instance.Target.HackType &&
-            hack.InfiniteRange ||
-            Vector3.Distance(DroneMovement.Instance.Position, Scanner.Instance.Target.transform.position) <= hack.Range;
-    }
 }

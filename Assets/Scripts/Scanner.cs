@@ -3,45 +3,82 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using crass;
 
 public class Scanner : Singleton<Scanner>
 {
-	public string InteractButton;
+	public string UseButton;
 
-	public GameObject HackingHUD, AlreadyHackedHUD;
-	public TargetNamer TargetNameDisplay;
+	[Header("Spherecast Settings")]
 	public float SpherecastRadius;
+	public LayerMask HackRayLayers;
 	public LayerMask HackableLayers;
 
-	public IHackable Target { get; private set; } = null;
+	[Header("UI Settings")]
+	public string InvalidTypeVT;
+	public string OutOfRangeVT, TotallyValidVT, 
+	              OpenHackMenuPrompt, UseHackPrompt;
+	public Color ValidColor, InvalidColor;
+
+	[Header("UI References")]
+	public GameObject HackingUIContainer;
+	public TextMeshProUGUI EquippedHackDisplay, TargetNameDisplay, ValidityText, SubPrompt;
+
+	public Hack ActiveHack { get; set; }
 
 	void Awake ()
 	{
 		SingletonSetInstance(this, true);
 	}
 
+	void Start ()
+	{
+		ActiveHack = InventoryManager.Instance.AvailableHacks[0];
+	}
+
 	void Update ()
 	{
+		EquippedHackDisplay.text = ActiveHack.DisplayName;
+
 		RaycastHit hit;
-		if (!Physics.SphereCast(transform.position, SpherecastRadius, transform.forward, out hit, Mathf.Infinity, HackableLayers, QueryTriggerInteraction.Collide))
+		bool didHit = Physics.SphereCast(transform.position, SpherecastRadius, transform.forward, out hit, Mathf.Infinity, HackRayLayers, QueryTriggerInteraction.Ignore);
+
+		bool hackableTarget = didHit &&
+			((1 << hit.collider.gameObject.layer) & HackableLayers) != 0; // layer is in hackable layers
+
+		HackingUIContainer.SetActive(hackableTarget);
+		if (!hackableTarget) return;
+
+		IHackable target = hit.collider.GetComponent<IHackable>();
+
+		TargetNameDisplay.text = target.HackName;
+
+		// assume target is invalid, do things that are shared in every invalid case:
+		ValidityText.color = InvalidColor;
+		SubPrompt.text = OpenHackMenuPrompt;
+
+		// figure out why:
+		if (ActiveHack.TargetObjectType != target.HackType)
 		{
-			HackingHUD.SetActive(false);
-			AlreadyHackedHUD.SetActive(false);
-			TargetNameDisplay.SetName("");
-			Target = null;
-			return;
+			ValidityText.text = InvalidTypeVT;
+		}
+		else if (!ActiveHack.InfiniteRange && Vector3.Distance(DroneMovement.Instance.Position, target.transform.position) > ActiveHack.Range)
+		{
+			ValidityText.text = OutOfRangeVT;
+		}
+		// if we assumed wrong:
+		else
+		{
+			ValidityText.text = TotallyValidVT;
+			ValidityText.color = ValidColor;
+
+			SubPrompt.text = UseHackPrompt;
 		}
 
-		Target = hit.collider.GetComponent<IHackable>();
-
-		HackingHUD.SetActive(!Target.Hacked);
-		AlreadyHackedHUD.SetActive(Target.Hacked);
-		TargetNameDisplay.SetName(Target.HackName);
-
-		if (Target.Hacked && Input.GetButtonDown(InteractButton))
+		if (Input.GetButtonDown(UseButton))
 		{
-			Target.Interact();
+			ActiveHack.UseOn(target);
 		}
 	}
 }

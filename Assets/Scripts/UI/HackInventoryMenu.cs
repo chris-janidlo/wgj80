@@ -80,34 +80,11 @@ public class HackInventoryMenu : MonoBehaviour
 
     void onButtonPointerEnter (Hack hack)
     {
-        string target;
-        switch (hack.TargetObjectType)
-        {
-            case HackableObject.Camera:
-                target = "camera";
-                break;
-
-            case HackableObject.Robot:
-                target = "guard robot";
-                break;
-
-            case HackableObject.Vent:
-                target = "vent cover";
-                break;
-
-            case HackableObject.Safe:
-                target = "safe";
-                break;
-
-            default:
-                throw new System.Exception($"Unexpected default when switching on {hack.TargetObjectType}");
-        }
-
         InfoBox.text =
-$@"{hack.DisplayName}
-<i>{hack.FlavorText}</i>
+$@"<b><u>{hack.DisplayName}</u></b>
 
-Attacks {target}s
+<i>{hack.FlavorText}</i>
+{hack.EffectText}
 {Mathf.RoundToInt(hack.PatchChance * 100)}% chance to leave trace
 {Mathf.RoundToInt(hack.RevealChance * 100)}% chance to trigger alarm
 {(hack.InfiniteRange ? "Infinite" : hack.Range + " meter")} range";
@@ -121,20 +98,6 @@ Attacks {target}s
     void onButtonClick (Hack hack)
     {
         setPauseState(false);
-
-        Scanner.Instance.Target.Hack();
-
-        bool caught = RandomExtra.Chance(hack.RevealChance);
-		bool patched = RandomExtra.Chance(hack.PatchChance);
-
-		if (caught)
-		{
-			SecurityManager.Instance.Alert = true;
-		}
-		if (patched)
-		{
-			// TODO: set some persistent state
-			Debug.Log("you got patched son");
-		}
+        Scanner.Instance.ActiveHack = hack;
     }
 }

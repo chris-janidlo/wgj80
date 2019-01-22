@@ -4,21 +4,25 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class SecurityBot : MonoBehaviour
+public class SecurityBot : IHackable
 {
     public float PlayerChaseDistance;
-    public List<Transform> PatrolPoints;
+    public List<PatrolPoint> PatrolPoints;
     public float StationaryTime;
+    public SecurityCamera ChildCam;
 
     int targetPoint;
     float oldStopDistance;
     NavMeshAgent agent;
     IEnumerator mainEnum;
 
-    void Start ()
+	public override HackableObject HackType => HackableObject.Robot;
+
+	void Start ()
     {
         agent = GetComponent<NavMeshAgent>();
         oldStopDistance = agent.stoppingDistance;
+        ChildCam.HackName = HackName;
         StartCoroutine(mainEnum = main());
     }
 
@@ -44,11 +48,24 @@ public class SecurityBot : MonoBehaviour
         }
     }
 
+    public void ShowVisionConeHack (float time)
+    {
+        ChildCam.ShowVisionConeHack(time);
+    }
+
+    public void ShowPatrolPoints (float time)
+    {
+        foreach (var point in PatrolPoints)
+        {
+            point.Reveal(time);
+        }
+    }
+
     IEnumerator main ()
     {
         while (true)
         {
-            agent.destination = PatrolPoints[targetPoint].position;
+            agent.destination = PatrolPoints[targetPoint].transform.position;
             targetPoint = (targetPoint + 1) % PatrolPoints.Count;
             yield return new WaitUntil(() => !agent.pathPending && agent.remainingDistance <= Mathf.Epsilon);
             yield return new WaitForSeconds(StationaryTime);

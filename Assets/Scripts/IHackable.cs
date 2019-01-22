@@ -7,15 +7,9 @@ public abstract class IHackable : MonoBehaviour
 {
     public string HackName;
 
-    public HackableObject HackType;
+    public abstract HackableObject HackType { get; }
+}
 
-    public bool Hacked { get; protected set; }
-
-    public void Hack ()
-    {
-        Hacked = true;
-        Interact();
-    }
-
-    public abstract void Interact ();
+public enum HackableObject {
+    Vent, Safe, Camera, Robot
 }

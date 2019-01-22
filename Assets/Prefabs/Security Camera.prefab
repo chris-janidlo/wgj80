@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 9034241352294627647, guid: a2e2a4315ddd746379ae1fe99308c523,
         type: 3}
       propertyPath: m_Name
-      value: GuardBot
+      value: Security Camera
       objectReference: {fileID: 0}
     - target: {fileID: 9034241352294851871, guid: a2e2a4315ddd746379ae1fe99308c523,
         type: 3}
@@ -85,6 +85,11 @@ PrefabInstance:
     - target: {fileID: 9034241352294627623, guid: a2e2a4315ddd746379ae1fe99308c523,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8647974979036091770, guid: a2e2a4315ddd746379ae1fe99308c523,
+        type: 3}
+      propertyPath: IsRobot
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9034241352294627621, guid: a2e2a4315ddd746379ae1fe99308c523,
