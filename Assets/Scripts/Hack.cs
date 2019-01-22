@@ -36,8 +36,7 @@ public class Hack : ScriptableObject
 		}
 		if (patched)
 		{
-			// TODO: set some persistent state
-			Debug.Log("you got patched son");
+            InventoryManager.Instance.HacksToBePatched.Add(this);
 		}
     }
 
