@@ -82,8 +82,8 @@ public class HackInventoryMenu : MonoBehaviour
     {
         InfoBox.text =
 $@"<b><u>{hack.DisplayName}</u></b>
+<i><color=#ffffff7f>{hack.FlavorText}</color></i>
 
-<i>{hack.FlavorText}</i>
 {hack.EffectText}
 {Mathf.RoundToInt(hack.PatchChance * 100)}% chance to leave trace
 {Mathf.RoundToInt(hack.RevealChance * 100)}% chance to trigger alarm

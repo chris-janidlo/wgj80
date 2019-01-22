@@ -53,7 +53,7 @@ public class SecurityBot : IHackable
         ChildCam.ShowVisionConeHack(time);
     }
 
-    public void ShowPatrolPoints (float time)
+    public void ShowPatrolPointsHack (float time)
     {
         foreach (var point in PatrolPoints)
         {

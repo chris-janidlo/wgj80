@@ -10,12 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e051a5a5002d34d19ba26923deff7852, type: 3}
-  m_Name: TestHack 1
+  m_Name: CDLongRange
   m_EditorClassIdentifier: 
-  DisplayName: ANGERBOOM
-  FlavorText: Spoofs ROM cache size
-  TargetObjectType: 1
-  RevealChance: 0.517
-  PatchChance: 1
-  Range: 0
+  DisplayName: SnapTurtle
+  FlavorText: clock vuln w snapdragon processors
+  EffectText: Disables camera for 20 seconds
+  TargetObjectType: 2
+  HackMethodName: DisableHack
+  HackMethodParam: 20
+  PassParam: 1
+  RevealChance: 0.05
+  PatchChance: 0.9
+  Range: 5
   InfiniteRange: 1

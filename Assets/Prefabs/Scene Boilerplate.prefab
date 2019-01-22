@@ -3136,7 +3136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8372699416115333393}
   m_Layer: 5
-  m_Name: HackingUI
+  m_Name: TargetUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4231,7 +4231,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -30, y: 0}
-  m_SizeDelta: {x: 240, y: 180}
+  m_SizeDelta: {x: 240, y: 230}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &7482575954564873146
 CanvasRenderer:
