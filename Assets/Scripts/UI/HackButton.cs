@@ -8,51 +8,51 @@ using TMPro;
 
 public class HackButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
-    public TextMeshProUGUI TargetText;
-    public Color NormalColor, HighlightedColor, PressedColor;
-    // TODO:
-    // public float FadeDuration;
+	public TextMeshProUGUI TargetText;
+	public Color NormalColor, HighlightedColor, PressedColor;
+	// TODO:
+	// public float FadeDuration;
 
-    Action<Hack> onPointerEnterCallback, onPointerExitCallback, onClickCallback;
-    Hack hack;
+	Action<Hack> onPointerEnterCallback, onPointerExitCallback, onClickCallback;
+	Hack hack;
 
 	bool hovered, pressed;
 
-    public void Initialize (Hack hack, Action<Hack> onPointerEnterCallback, Action<Hack> onPointerExitCallback, Action<Hack> onClickCallback)
-    {
-        this.hack = hack;
-        this.onPointerEnterCallback = onPointerEnterCallback;
-        this.onPointerExitCallback = onPointerExitCallback;
-        this.onClickCallback = onClickCallback;
+	public void Initialize (Hack hack, Action<Hack> onPointerEnterCallback, Action<Hack> onPointerExitCallback, Action<Hack> onClickCallback)
+	{
+		this.hack = hack;
+		this.onPointerEnterCallback = onPointerEnterCallback;
+		this.onPointerExitCallback = onPointerExitCallback;
+		this.onClickCallback = onClickCallback;
 
-        TargetText.text = hack.DisplayName;
-    }
+	TargetText.text = hack.DisplayName;
+	}
 
 	public void OnPointerEnter (PointerEventData eventData)
 	{
-        hovered = true;
-        TargetText.color = pressed ? PressedColor : HighlightedColor;
-        onPointerEnterCallback(hack);
+		hovered = true;
+		TargetText.color = pressed ? PressedColor : HighlightedColor;
+		onPointerEnterCallback(hack);
 	}
 
 	public void OnPointerExit (PointerEventData eventData)
 	{
-        hovered = false;
-        TargetText.color = pressed ? HighlightedColor : NormalColor;
-        onPointerExitCallback(hack);
+		hovered = false;
+		TargetText.color = pressed ? HighlightedColor : NormalColor;
+		onPointerExitCallback(hack);
 	}
 
 	public void OnPointerDown(PointerEventData eventData)
 	{
-        pressed = true;
-        TargetText.color = PressedColor;
+		pressed = true;
+		TargetText.color = PressedColor;
 	}
 
 	public void OnPointerUp(PointerEventData eventData)
 	{
-        pressed = false;
-        TargetText.color = NormalColor;
+		pressed = false;
+		TargetText.color = NormalColor;
 
-        if (hovered) onClickCallback(hack);
+		if (hovered) onClickCallback(hack);
 	}
 }
