@@ -19,6 +19,8 @@ public class InventoryManager : Singleton<InventoryManager>
 		public Vector2Int Value;
 	}
 	public NumberRangePerHackType[] NumberRangePerHackTypeInShop;
+
+	public bool PatchesReady => HacksToBePatched != null && HacksToBePatched.Count > 0;
 	
 	void Awake ()
 	{
@@ -31,6 +33,14 @@ public class InventoryManager : Singleton<InventoryManager>
 			SingletonSetInstance(this, false);
 			transform.parent = null;
 			DontDestroyOnLoad(gameObject);
+		}
+	}
+
+	void Start ()
+	{
+		if (HacksToBePatched == null)
+		{
+			HacksToBePatched = new HashSet<Hack>();
 		}
 	}
 

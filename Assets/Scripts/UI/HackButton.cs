@@ -13,6 +13,20 @@ public class HackButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 	// TODO:
 	// public float FadeDuration;
 
+	bool _clickable = true;
+	public bool Clickable
+	{
+		get
+		{
+			return _clickable;
+		}
+		set
+		{
+			if (!value) pressed = false;
+			_clickable = value;
+		}
+	}
+
 	Action<Hack> onPointerEnterCallback, onPointerExitCallback, onClickCallback;
 	Hack hack;
 
@@ -25,7 +39,7 @@ public class HackButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 		this.onPointerExitCallback = onPointerExitCallback;
 		this.onClickCallback = onClickCallback;
 
-	TargetText.text = hack.DisplayName;
+		TargetText.text = hack.DisplayName;
 	}
 
 	public void OnPointerEnter (PointerEventData eventData)
@@ -44,12 +58,16 @@ public class HackButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
 	public void OnPointerDown(PointerEventData eventData)
 	{
+		if (!Clickable) return;
+
 		pressed = true;
 		TargetText.color = PressedColor;
 	}
 
 	public void OnPointerUp(PointerEventData eventData)
 	{
+		if (!Clickable) return;
+
 		pressed = false;
 		TargetText.color = NormalColor;
 
