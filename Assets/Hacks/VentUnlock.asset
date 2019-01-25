@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e051a5a5002d34d19ba26923deff7852, type: 3}
-  m_Name: CamVisionCone
+  m_Name: VentUnlock
   m_EditorClassIdentifier: 
-  DisplayName: R4th4105
-  FlavorText: Firewall rootkit for PAL/ICO servers
-  EffectText: Reveals camera vision cone for 5 seconds
-  TargetObjectType: 2
-  HackMethodName: ShowVisionConeHack
-  HackMethodParam: 5
+  DisplayName: Amnesiac
+  FlavorText: Memory edits to acquire kernel level lock
+  EffectText: For 30 seconds, unlocks covers at either end of a vent
+  TargetObjectType: 0
+  HackMethodName: OpenHack
+  HackMethodParam: 30
   PassParam: 1
-  RevealChance: 0.05
-  PatchChance: 0.5
+  RevealChance: 0.1
+  PatchChance: 0
   Range: 10
   InfiniteRange: 0
-  MarketPriceRange: {x: 80, y: 150}
+  MarketPriceRange: {x: 0, y: 0}

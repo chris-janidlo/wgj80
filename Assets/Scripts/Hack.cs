@@ -20,7 +20,8 @@ public class Hack : ScriptableObject
     public int Range;
     public bool InfiniteRange;
     public Vector2Int MarketPriceRange;
-    public int CurrentMarketPrice;
+
+    public int CurrentMarketPrice { get; private set; }
 
     public void UseOn (IHackable target)
     {
@@ -43,5 +44,17 @@ public class Hack : ScriptableObject
     public int NewMarketPrice ()
     {
         return CurrentMarketPrice = Random.Range(MarketPriceRange.x, MarketPriceRange.y);
+    }
+
+    public string InfoString ()
+    {
+        return 
+$@"<b><u>{DisplayName}</u></b>
+<i><color=#ffffff7f>{FlavorText}</color></i>
+
+{EffectText}
+{Mathf.RoundToInt(PatchChance * 100)}% chance to leave trace
+{Mathf.RoundToInt(RevealChance * 100)}% chance to trigger alarm
+{(InfiniteRange ? "Infinite" : Range + " meter")} range";
     }
 }

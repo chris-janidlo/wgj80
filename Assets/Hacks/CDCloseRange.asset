@@ -23,3 +23,4 @@ MonoBehaviour:
   PatchChance: 0.6
   Range: 5
   InfiniteRange: 0
+  MarketPriceRange: {x: 80, y: 150}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e051a5a5002d34d19ba26923deff7852, type: 3}
-  m_Name: CamDisable
+  m_Name: RoboVisionCone
   m_EditorClassIdentifier: 
   DisplayName: Jimbo
   FlavorText: Aggressively feeds bad data
@@ -23,3 +23,4 @@ MonoBehaviour:
   PatchChance: 1
   Range: 10
   InfiniteRange: 0
+  MarketPriceRange: {x: 80, y: 150}

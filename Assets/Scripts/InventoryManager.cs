@@ -11,7 +11,14 @@ public class InventoryManager : Singleton<InventoryManager>
 	public List<Hack> AvailableHacks, BuyableHacks;
 	public HashSet<Hack> HacksToBePatched;
 	public int Credits;
-	public Dictionary<HackableObject, Vector2Int> NumberRangePerHackTypeInShop;
+
+	[System.Serializable]
+	public struct NumberRangePerHackType
+	{
+		public HackableObject Key;
+		public Vector2Int Value;
+	}
+	public NumberRangePerHackType[] NumberRangePerHackTypeInShop;
 	
 	void Awake ()
 	{
@@ -36,26 +43,34 @@ public class InventoryManager : Singleton<InventoryManager>
 		HacksToBePatched.Clear();
 	}
 
-	public Dictionary<HackableObject, List<Hack>> GetShopListing ()
+	public List<Hack> GetShopListing ()
 	{
 		ILookup<HackableObject, Hack> inLookup = BuyableHacks.ToLookup(x => x.TargetObjectType); // basically a dictionary, groups hacks by target type
-		Dictionary<HackableObject, List<Hack>> outDict = new Dictionary<HackableObject, List<Hack>>();
+		List<Hack> outList = new List<Hack>();
 		
 		foreach (var pair in NumberRangePerHackTypeInShop)
 		{
-			outDict[pair.Key] =
+			IEnumerable<Hack> hackTypeList =
 				inLookup[pair.Key]
 				.OrderBy(x => System.Guid.NewGuid())
-				.Take(Random.Range(pair.Value.x, pair.Value.y))
-				.ToList();
+				.Take(Random.Range(pair.Value.x, pair.Value.y));
 
-			foreach (var hack in outDict[pair.Key])
+			outList.AddRange(hackTypeList);
+			foreach (var hack in hackTypeList)
 			{
 				hack.NewMarketPrice();
 			}
 		}
 
-		return outDict;
+		return outList;
+	}
+
+	public void AppraiseInventory ()
+	{
+		foreach (var hack in AvailableHacks)
+		{
+			hack.NewMarketPrice();
+		}
 	}
 
 	// assumes we have enough credits
@@ -64,5 +79,20 @@ public class InventoryManager : Singleton<InventoryManager>
 		Credits -= hack.CurrentMarketPrice;
 		BuyableHacks.Remove(hack);
 		AvailableHacks.Add(hack);
+	}
+
+	public void SellHack (Hack hack)
+	{
+		if (AvailableHacks.Contains(hack))
+		{
+			Credits += hack.CurrentMarketPrice;
+			BuyableHacks.Add(hack);
+			AvailableHacks.Remove(hack);
+		}
+	}
+
+	public bool CanBuyHack (Hack hack)
+	{
+		return hack.CurrentMarketPrice <= Credits;
 	}
 }
