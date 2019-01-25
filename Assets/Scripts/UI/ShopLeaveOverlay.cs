@@ -20,7 +20,7 @@ public class ShopLeaveOverlay : MonoBehaviour
 
     void leaveClick ()
     {
-        // load new scene
+        // TODO: load new scene
         Debug.Log("scene loaded here");
     }
 }

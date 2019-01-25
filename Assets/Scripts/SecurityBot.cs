@@ -26,7 +26,6 @@ public class SecurityBot : IHackable
         StartCoroutine(mainEnum = main());
     }
 
-    // Update is called once per frame
     void Update ()
     {
         if (SecurityManager.Instance.Alert)

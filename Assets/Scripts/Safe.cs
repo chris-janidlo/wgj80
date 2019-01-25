@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Safe : IHackable
 {
@@ -18,7 +19,7 @@ public class Safe : IHackable
         if (open && other.tag == "Player")
         {
             InventoryManager.Instance.Credits += Credits;
-            // load shopping scene
+            SceneManager.LoadScene("Shop");
         }
     }
 
