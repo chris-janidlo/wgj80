@@ -227,10 +227,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHacks: 10
   AvailableHacks:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: c1ff576e8bc0c47dc82ffddeea82c322, type: 2}
+  - {fileID: 11400000, guid: bda524efc9d26455fbf84a9ce7f1b0ea, type: 2}
+  BuyableHacks:
+  - {fileID: 11400000, guid: 7016d25595c104a9a8493741e6920382, type: 2}
+  - {fileID: 11400000, guid: 5e5138ff9bacb4c9d88a4b8325989e07, type: 2}
+  - {fileID: 11400000, guid: eb4db32787acf4f1292ffee485de266c, type: 2}
+  - {fileID: 11400000, guid: 17f9532dc5603436abde0d275f760ed6, type: 2}
+  - {fileID: 11400000, guid: 9457ccbf0ca614677a28f76bc30e8479, type: 2}
+  Credits: 0
+  NumberRangePerHackTypeInShop: []
 --- !u!1 &1593796134665851491
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,15 +35,15 @@ public class Safe : IHackable
     IEnumerator openHackRoutine ()
     {
         float amount = 0;
-        Quaternion initialRotation = DoorTransform.rotation, finalRotation = Quaternion.Euler(FinalRotation);
+        Quaternion initialRotation = DoorTransform.localRotation, finalRotation = Quaternion.Euler(FinalRotation);
 
-        while (amount <= 0)
+        while (amount <= 1)
         {
-            DoorTransform.rotation = Quaternion.Slerp(initialRotation, finalRotation, amount);
+            DoorTransform.localRotation = Quaternion.Slerp(initialRotation, finalRotation, amount);
             amount += Time.deltaTime / OpenTime;
             yield return null;
         }
-        DoorTransform.rotation = finalRotation;
+        DoorTransform.localRotation = finalRotation;
 
         open = true;
     }

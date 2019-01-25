@@ -50,7 +50,7 @@ public class Scanner : Singleton<Scanner>
 		HackingUIContainer.SetActive(hackableTarget);
 		if (!hackableTarget) return;
 
-		IHackable target = hit.collider.GetComponent<IHackable>();
+		IHackable target = hit.collider.GetComponentInParent<IHackable>();
 
 		TargetNameDisplay.text = target.HackName;
 

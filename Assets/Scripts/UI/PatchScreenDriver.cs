@@ -12,12 +12,14 @@ public class PatchScreenDriver : MonoBehaviour
     public Button ContinueButton;
     public TextMeshProUGUI InfoBox;
     public string EmptyInfoString;
+    public ShopInterface Shop;
 
     void Start ()
     {
         if (!InventoryManager.Instance.PatchesReady)
         {
             Destroy(gameObject);
+            Shop.Initialize();
             return;
         }
 
@@ -29,6 +31,8 @@ public class PatchScreenDriver : MonoBehaviour
             button.transform.SetParent(HackContainer, false);
         }
         InventoryManager.Instance.PatchAll();
+
+        Shop.Initialize();
 
         ContinueButton.onClick.AddListener(continueClick);
     }

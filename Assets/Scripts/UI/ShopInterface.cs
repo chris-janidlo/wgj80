@@ -18,10 +18,11 @@ public class ShopInterface : MonoBehaviour
 
     Dictionary<Hack, Transform> buttonRefs;
 
-    void Start ()
+    public void Initialize ()
     {
         InventoryManager.Instance.AppraiseInventory();
-        shopList = InventoryManager.Instance.GetShopListing();
+        // TODO: dynamic shop number
+        shopList = InventoryManager.Instance.GetShopListing(10);
 
         buttonRefs = new Dictionary<Hack, Transform>();
         populateContainer(shopList, ShopContainer);

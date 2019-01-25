@@ -9972,7 +9972,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1613936887}
   - component: {fileID: 1613936891}
-  - component: {fileID: 1613936890}
   - component: {fileID: 1613936889}
   - component: {fileID: 1613936888}
   m_Layer: 5
@@ -10014,7 +10013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -10072,18 +10071,6 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &1613936890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1613936886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0c5333240b4b4ca199693ae0ccf2c7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &1613936891
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10349,7 +10336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -15513,7 +15500,7 @@ PrefabInstance:
     - target: {fileID: 1292141344571152431, guid: 5cdc60031f0994cd6b1c0e927e7bb2e0,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000007224824
+      value: -0.0000148542185
       objectReference: {fileID: 0}
     - target: {fileID: 4671608014771593238, guid: 5cdc60031f0994cd6b1c0e927e7bb2e0,
         type: 3}
@@ -15642,6 +15629,7 @@ MonoBehaviour:
   ButtonPrefab: {fileID: 7571934573542145824, guid: 68d0bd2f81293411ab443f8d268265f9,
     type: 3}
   Overlay: {fileID: 1110453902}
-  ContinueButton: {fileID: 1670898152}
+  ContinueButton: {fileID: 1613936888}
   InfoBox: {fileID: 80770706}
   EmptyInfoString: // Hover over a hack to view info
+  Shop: {fileID: 972917617}

@@ -38,6 +38,7 @@ public class Hack : ScriptableObject
 		if (patched)
 		{
             InventoryManager.Instance.HacksToBePatched.Add(this);
+            Debug.Log("you got patched son");
 		}
     }
 

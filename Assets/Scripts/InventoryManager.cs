@@ -12,14 +12,6 @@ public class InventoryManager : Singleton<InventoryManager>
 	public HashSet<Hack> HacksToBePatched;
 	public int Credits;
 
-	[System.Serializable]
-	public struct NumberRangePerHackType
-	{
-		public HackableObject Key;
-		public Vector2Int Value;
-	}
-	public NumberRangePerHackType[] NumberRangePerHackTypeInShop;
-
 	public bool PatchesReady => HacksToBePatched != null && HacksToBePatched.Count > 0;
 	
 	void Awake ()
@@ -49,30 +41,17 @@ public class InventoryManager : Singleton<InventoryManager>
 		foreach (var hack in HacksToBePatched)
 		{
 			AvailableHacks.Remove(hack);
+			BuyableHacks.Remove(hack);
 		}
 		HacksToBePatched.Clear();
 	}
 
-	public List<Hack> GetShopListing ()
+	public List<Hack> GetShopListing (int number)
 	{
-		ILookup<HackableObject, Hack> inLookup = BuyableHacks.ToLookup(x => x.TargetObjectType); // basically a dictionary, groups hacks by target type
-		List<Hack> outList = new List<Hack>();
-		
-		foreach (var pair in NumberRangePerHackTypeInShop)
-		{
-			IEnumerable<Hack> hackTypeList =
-				inLookup[pair.Key]
-				.OrderBy(x => System.Guid.NewGuid())
-				.Take(Random.Range(pair.Value.x, pair.Value.y));
-
-			outList.AddRange(hackTypeList);
-			foreach (var hack in hackTypeList)
-			{
-				hack.NewMarketPrice();
-			}
-		}
-
-		return outList;
+		return BuyableHacks
+			.OrderBy(x => System.Guid.NewGuid())
+			.Take(number)
+			.ToList();
 	}
 
 	public void AppraiseInventory ()
